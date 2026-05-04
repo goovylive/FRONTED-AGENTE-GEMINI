@@ -1,0 +1,6 @@
+{
+  "name": "Grover AI Chat",
+  "description": "Una interfaz de chat moderna para interactuar con el Agente Grover con soporte para Markdown, tablas y visualización de herramientas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

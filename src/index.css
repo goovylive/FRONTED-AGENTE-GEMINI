@@ -1,0 +1,61 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-zinc-950: #0a0a0c;
+}
+
+@layer base {
+  body {
+    @apply bg-zinc-950 text-white antialiased selection:bg-teal-500/30;
+  }
+}
+
+/* Markdown Table Styles */
+.prose table {
+  @apply w-full border-collapse my-4 text-xs font-mono border border-white/10 rounded-xl overflow-hidden bg-black/20;
+}
+
+.prose thead {
+  @apply bg-white/5 text-white/50;
+}
+
+.prose th {
+  @apply py-3 px-4 text-left font-medium border-b border-white/5;
+}
+
+.prose td {
+  @apply py-3 px-4 border-b border-white/5 text-white/90;
+}
+
+.prose tr:last-child td {
+  @apply border-b-0;
+}
+
+.prose tr:hover td {
+  @apply bg-white/5;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-zinc-800 rounded-full hover:bg-zinc-700;
+}
+
+/* Animations */
+@keyframes typing {
+  0% { transform: translateY(0px); opacity: 0.3; }
+  50% { transform: translateY(-4px); opacity: 1; }
+  100% { transform: translateY(0px); opacity: 0.3; }
+}
+
+.dot-anim {
+  animation: typing 1s infinite;
+}
