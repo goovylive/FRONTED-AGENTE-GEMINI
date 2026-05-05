@@ -228,7 +228,7 @@ export default function Page() {
 
         {/* Input Area */}
         <div className="p-8">
-          <ChatInput onSend={handleSendMessage} isLoading={isLoading} />
+          <ChatInput key={activeSessionId} onSend={handleSendMessage} isLoading={isLoading} />
         </div>
       </main>
     </div>

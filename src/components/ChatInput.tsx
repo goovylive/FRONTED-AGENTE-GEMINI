@@ -11,8 +11,14 @@ interface ChatInputProps {
 export const ChatInput: React.FC<ChatInputProps> = ({ onSend, isLoading }) => {
   const [input, setInput] = React.useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      triggerSend();
+    }
+  };
+
+  const triggerSend = () => {
     if (input.trim() && !isLoading) {
       onSend(input.trim());
       setInput('');
@@ -28,13 +34,16 @@ export const ChatInput: React.FC<ChatInputProps> = ({ onSend, isLoading }) => {
         <input
           type="text"
           value={input}
+          autoFocus
           onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder="Escribe un mensaje al Agente Grover..."
           disabled={isLoading}
           className="bg-transparent border-none outline-none flex-1 px-5 pl-12 text-sm py-4 placeholder:text-white/20 text-white disabled:opacity-50"
         />
         <button
-          type="submit"
+          type="button"
+          onClick={triggerSend}
           disabled={!input.trim() || isLoading}
           className="p-3 bg-teal-500 hover:bg-teal-400 disabled:bg-white/5 disabled:text-white/10 text-black rounded-xl transition-all shadow-lg shadow-teal-500/20 active:scale-95"
         >

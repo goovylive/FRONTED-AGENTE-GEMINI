@@ -49,7 +49,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
             {isAssistant ? (
               <div className="flex items-center gap-2 text-teal-400">
                 <span className="flex h-1.5 w-1.5 rounded-full bg-teal-400" />
-                Grover Intelligence
+                Agente de Grover
               </div>
             ) : 'User Terminal'}
           </span>

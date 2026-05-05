@@ -32,7 +32,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <div className="w-8 h-8 bg-gradient-to-tr from-indigo-500 to-teal-400 rounded flex items-center justify-center shadow-lg shadow-teal-500/10">
             <Github className="text-black" size={18} />
           </div>
-          <span className="text-lg font-semibold tracking-tight text-white">Grover <span className="text-teal-400">Agent</span></span>
+          <span className="text-lg font-semibold tracking-tight text-white">Agente de <span className="text-teal-400">Grover</span></span>
         </div>
 
         <button
