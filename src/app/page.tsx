@@ -110,7 +110,7 @@ export default function Page() {
     try {
       const targetSession = sessions.find(s => s.id === currentSessionId);
       const history = targetSession?.messages || [];
-      const response = await chatService.sendMessage(content, [...history, userMessage]);
+      const response = await chatService.sendMessage(content, history);
 
       const assistantMessage: Message = {
         role: Role.ASSISTANT,
@@ -162,7 +162,7 @@ export default function Page() {
         <header className="h-16 flex items-center justify-between px-8 bg-white/5 backdrop-blur-md border-b border-white/10 z-10">
           <div className="flex items-center gap-2">
             <h2 className="text-lg font-semibold tracking-tight text-white flex items-center gap-2">
-              Agente <span className="text-teal-400 font-bold uppercase text-sm">{activeSession?.title || 'Grover'}</span>
+              Agente de <span className="text-teal-400 font-bold uppercase text-sm">{activeSession?.title || 'Grover'}</span>
               <span className="flex h-2 w-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulse" />
             </h2>
           </div>

@@ -91,8 +91,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
             GA
           </div>
           <div className="text-[10px]">
-            <p className="font-semibold text-white/90">Grover User</p>
-            <p className="text-white/30 uppercase tracking-tighter">System Access</p>
+            <p className="font-semibold text-white/90">Usuario</p>
+            <p className="text-white/30 uppercase tracking-tighter">Acceso al Sistema</p>
           </div>
         </div>
       </div>
