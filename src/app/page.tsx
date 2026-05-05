@@ -1,16 +1,17 @@
+'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Sidebar } from './components/Sidebar';
-import { ChatMessage } from './components/ChatMessage';
-import { ChatInput } from './components/ChatInput';
-import { Message, ChatSession, Role } from './types';
-import { chatService } from './services/chatService';
+import { Sidebar } from '../components/Sidebar';
+import { ChatMessage } from '../components/ChatMessage';
+import { ChatInput } from '../components/ChatInput';
+import { Message, ChatSession, Role } from '../types';
+import { chatService } from '../services/chatService';
 import { motion, AnimatePresence } from 'motion/react';
 import { Loader2, Sparkles, MessageCircleCode } from 'lucide-react';
 
 const STORAGE_KEY = 'grover_chat_sessions';
 
-export default function App() {
+export default function Page() {
   const [sessions, setSessions] = useState<ChatSession[]>([]);
   const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -20,10 +21,14 @@ export default function App() {
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
-      const parsed = JSON.parse(saved);
-      setSessions(parsed);
-      if (parsed.length > 0) {
-        setActiveSessionId(parsed[parsed.length - 1].id);
+      try {
+        const parsed = JSON.parse(saved);
+        setSessions(parsed);
+        if (parsed.length > 0) {
+          setActiveSessionId(parsed[parsed.length - 1].id);
+        }
+      } catch (e) {
+        console.error("Failed to parse sessions", e);
       }
     }
   }, []);
@@ -103,7 +108,8 @@ export default function App() {
     setIsLoading(true);
 
     try {
-      const history = sessions.find(s => s.id === currentSessionId)?.messages || [];
+      const targetSession = sessions.find(s => s.id === currentSessionId);
+      const history = targetSession?.messages || [];
       const response = await chatService.sendMessage(content, [...history, userMessage]);
 
       const assistantMessage: Message = {
@@ -177,6 +183,7 @@ export default function App() {
                 <>
                   {activeSession.messages.length === 0 && (
                     <motion.div 
+                      key="empty-state"
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
                       className="flex flex-col items-center justify-center py-24 text-center"
@@ -195,6 +202,7 @@ export default function App() {
                   ))}
                   {isLoading && (
                     <motion.div
+                      key="loading-indicator"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       className="flex items-center gap-3 text-white/30 text-xs px-2"
@@ -218,6 +226,7 @@ export default function App() {
           </div>
         </div>
 
+        {/* Input Area */}
         <div className="p-8">
           <ChatInput onSend={handleSendMessage} isLoading={isLoading} />
         </div>
